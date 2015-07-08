@@ -20,6 +20,43 @@ The drawer automatically hides when the user swipes back or taps the remaining v
 
 > **Important:** If the Drawer is used for navigation View transition should be turned off.
 
+### When using Drawer for only some navigation but keeping default transitions
+Sometimes you want to use the drawer to navigate to some remote views, but not as your main navigation, but you want to keep the default page animation property in the device ready and not shut page animations off for the whole app. Let's say you want to have settings.html or go back to the homepage of your app. You can add the data-transition="none" to the individual navigation button/link in the drawer.  A side effect of not setting the transition to "none" would be a double animation effect of the remote view.  This will fix this.
+
+**app.js**
+
+    var app = new kendo.mobile.Application(document.body, 
+    {
+        // you can change the default transition (slide, zoom or fade)
+        transition: 'slide',
+        // comment out the following line to get a UI which matches the look
+        // and feel of the operating system
+        skin: 'flat',
+        // the application needs to know which view to load first
+        initial: 'views/home.html'
+      });
+
+**index.html**
+
+    <div data-role="view">
+        <a href="#foo" data-rel="drawer" data-role="button">Drawer</a>
+    </div>
+    
+     <div data-role="drawer" id="foo">
+        <div data-role="header">
+            <div data-role="navbar">
+                <span data-role="view-title">Hello World!</span>
+                <a href="views/home.html" data-role="button" data-align="right" class="nav-button" data-transition="none"></a>
+            </div>
+        </div>
+
+        <ul data-role="listview">
+            <li><a href="settings.html" data-transition="none">Settings </a></li>
+        </ul>
+     </div>
+     
+     
+
 ### Drawer and a reveal button
 
     <div data-role="view">
